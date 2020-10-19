@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//return index
+Route::get("/cliente", "App\\Http\\Controllers\\ClienteController@index")->name('cliente.index');
+    
+//ir a crear cliente
+Route::get("/cliente/create", "App\\Http\\Controllers\\ClienteController@create")->name('cliente.create');
+//crear usuario 
+Route::post("/cliente", "App\\Http\\Controllers\\ClienteController@store");
+

@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +21,11 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        return view('cliente/index');
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,6 +35,7 @@ class ClienteController extends Controller
     public function create()
     {
         //
+        return view('cliente/create');
     }
 
     /**
@@ -35,7 +46,36 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $data = $request->validate([
+            'rut'=>'required|min:11|max:12', 
+            'nombre'=>'required|min:3',
+            'fechaNacimiento'=>'required',
+            'genero'=>'required',
+            'email'=>'required|email',
+            'phone'=>'numeric',
+            'dirreccion'=>'required',
+            'region'=>'required',
+            'comuna'=>'required'
+        ]);
+        //insertar a BD
+        DB::table('clientes')->insert([
+            'rut'=>$data['rut'], 
+            'nombre'=>$data['nombre'],
+            'fechaNacimiento'=>$data['fechaNacimiento'],
+            'genero'=>$data['genero'],
+            'email'=>$data['email'],
+            'phone'=>$data['phone'],
+            'dirreccion'=>$data['dirreccion'],
+            'region'=>$data['region'],
+            'comuna'=>$data['comuna']
+        ]);
+        
+
+        //redirreccionar
+        return redirect()->action('App\\Http\\Controllers\\ClienteController@index');
+        
+        
     }
 
     /**
