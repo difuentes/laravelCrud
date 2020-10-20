@@ -45,6 +45,7 @@
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css"/>
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 
 </head>
 <body>
@@ -100,9 +101,9 @@
             </div>
         </nav>
 
-        <div class="container">
+        <div class="col-12">
             <div class="row">
-                <div class="py-4 mt-5 col-12">
+                <div class="">
                     @yield('botones')
                 </div> 
                

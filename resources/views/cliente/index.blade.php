@@ -1,46 +1,51 @@
 @extends('layouts.app')
 
 @section('botones')
-      <a href="/cliente/create" class="btn btn-success mr-2"> Crear Cliente</a>
+    <div class="py-4 mt-5 col-12 ml-5">
+        <a href="/cliente/create" class="btn btn-success mr-2"> Crear Cliente</a>
+    </div>
+      
 @endsection
 
 @section('content')
     <h2 class="text-center text-success mb-5 animate__backInDown animate__delay-1s">Administrador de clientes</h2>
-
-    <div class="col-md-12 mx-auto bg-white p-3">
-        <table class="table">
+    <div class="col-md-10 mx-auto bg-white p-3">
+        <table class="table table-bordered">
             <thead class="bg-success text-light">
                 <tr>
                     <th scole="col">Rut</th>
                     <th scole="col">Nombre</th>
-                    <th scole="col">Fecha nacimiento</th>
-                    <th scole="col">Genero</th>
                     <th scole="col">Email</th>
                     <th scole="col">Telefono</th>
                     <th scole="col">Dirreccion</th>
-                    <th scole="col">Region</th>
-                    <th scole="col">Comuna</th>
-                    <th></th>
-                    <th></th>
+                    <th class="text-center"><i class="fas fa-eye "></i></th>
+                    <th class="text-center"><i class="fas fa-pen "></i></th>
+                    <th class="text-center"><i class="fas fa-trash "></i></th>
                 </tr>
             </thead>
 
             <tbody>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>
-                    <a href=" " class="btn btn-primary d-block">Ver</a>
-                </td>
-                <td>
-                    <a href=" " class="btn btn-danger d-block mb-2">Editar</a>
-                </td>
+                @foreach ($cliente as $cliente)
+                <tr>
+                    <td> {{$cliente->rut}} </td>
+                    <td> {{$cliente->nombre}} </td>
+                    <td> {{$cliente->email}} </td>
+                    <td> {{$cliente->phone}} </td>
+                    <td> {{$cliente->dirreccion}} </td>
+                    <td>
+                       
+                        <a href="/cliente/{{$cliente->id }}" class="btn btn-success d-block">Ver</a>
+                    </td>
+                    <td>
+                        <a href="/cliente/{{$cliente->id}}/edit" class="btn btn-warning d-block mb-2">Editar</a>
+                    </td>
+                    <td>
+                        <a href="" class="btn btn-danger d-block mb-2">Eliminar</a>
+                    </td>
+                </tr>
+           
+            @endforeach
+
 
             </tbody>
         </table>

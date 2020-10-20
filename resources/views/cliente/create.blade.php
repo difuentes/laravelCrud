@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('botones')
-      <a href="/cliente" class="btn btn-danger mr-2">Volver</a>
+        <div class="py-4 mt-5 col-12">
+            <a href="/cliente" class="btn btn-danger mr-2">Volver</a>
+        </div>
 @endsection
 
 @section('content')

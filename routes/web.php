@@ -26,6 +26,13 @@ Route::get("/cliente", "App\\Http\\Controllers\\ClienteController@index")->name(
     
 //ir a crear cliente
 Route::get("/cliente/create", "App\\Http\\Controllers\\ClienteController@create")->name('cliente.create');
-//crear usuario 
+//crear clientes 
 Route::post("/cliente", "App\\Http\\Controllers\\ClienteController@store");
+//listar clientes
+Route::get("/cliente/{cliente}", "App\\Http\\Controllers\\ClienteController@show")->name('cliente.show');
+//enviar a pagina editar
+Route::get("/cliente/{cliente}/edit", "App\\Http\\Controllers\\ClienteController@edit")->name('cliente.edit');
+//editar
+Route::put("/cliente/{cliente}", "App\\Http\\Controllers\\ClienteController@update")->name('cliente.update');
+
 

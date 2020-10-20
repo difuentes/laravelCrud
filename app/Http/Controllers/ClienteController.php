@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
-    
+    //activar middleware authenticacion 
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,7 +22,9 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('cliente/index');
+        //enviar clientes a index
+        $cliente = Cliente::all();
+        return view('cliente/index')->with('cliente',$cliente);
     }
 
 
@@ -87,6 +90,7 @@ class ClienteController extends Controller
     public function show(Cliente $cliente)
     {
         //
+        return view('cliente/show', compact('cliente'));
     }
 
     /**
@@ -98,6 +102,7 @@ class ClienteController extends Controller
     public function edit(Cliente $cliente)
     {
         //
+        return view('cliente/edit',compact('cliente'));
     }
 
     /**
@@ -109,7 +114,34 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        //validacion de campos
+        $data = $request->validate([
+            'rut'=>'required|min:11|max:12', 
+            'nombre'=>'required|min:3',
+            'fechaNacimiento'=>'required',
+            'genero'=>'required',
+            'email'=>'required|email',
+            'phone'=>'numeric',
+            'dirreccion'=>'required',
+            'region'=>'required',
+            'comuna'=>'required'
+        ]);
+
+        $cliente->rut = $data['rut'];
+        $cliente->nombre = $data['nombre'];
+        $cliente->fechaNacimiento = $data['fechaNacimiento'];
+        $cliente->genero = $data['genero'];
+        $cliente->email = $data['email'];
+        $cliente->phone = $data['phone'];
+        $cliente->dirreccion = $data['dirreccion'];
+        $cliente->region = $data['region'];
+        $cliente->comuna = $data['comuna'];
+
+        //guardar actualizacion de cliente
+        $cliente->save();
+
+        //redireccionar
+        return redirect()->action('App\\Http\\Controllers\\ClienteController@index');
     }
 
     /**
@@ -121,5 +153,16 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         //
+    }
+
+    public function search(Request $request) 
+    {
+        // $busqueda = $request['buscar'];
+        $busqueda = $request->get('buscar');
+
+        $cliente = Cliente::where('titulo', 'like', '%' . $busqueda . '%')->paginate(10);
+        $cliente->appends(['buscar' => $busqueda]);
+
+        return view('busquedas.show', compact('cliente', 'busqueda'));
     }
 }
