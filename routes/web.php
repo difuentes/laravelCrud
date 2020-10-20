@@ -34,5 +34,7 @@ Route::get("/cliente/{cliente}", "App\\Http\\Controllers\\ClienteController@show
 Route::get("/cliente/{cliente}/edit", "App\\Http\\Controllers\\ClienteController@edit")->name('cliente.edit');
 //editar
 Route::put("/cliente/{cliente}", "App\\Http\\Controllers\\ClienteController@update")->name('cliente.update');
+//eliminar
+Route::delete("/cliente/{cliente}", "App\\Http\\Controllers\\ClienteController@destroy")->name('cliente.destroy');
 
 

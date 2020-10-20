@@ -23,12 +23,9 @@ class ClienteController extends Controller
     public function index()
     {
         //enviar clientes a index
-        $cliente = Cliente::all();
+        $cliente = Cliente::where('id','>',0 )->paginate(15);
         return view('cliente/index')->with('cliente',$cliente);
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -152,7 +149,9 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        // Eliminar la cliente
+        $cliente->delete();
+        return redirect()->action('App\\Http\\Controllers\\ClienteController@index');
     }
 
     public function search(Request $request) 

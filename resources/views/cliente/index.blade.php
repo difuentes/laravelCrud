@@ -40,16 +40,23 @@
                         <a href="/cliente/{{$cliente->id}}/edit" class="btn btn-warning d-block mb-2">Editar</a>
                     </td>
                     <td>
-                        <a href="" class="btn btn-danger d-block mb-2">Eliminar</a>
+                        <form method="POST" action="{{action("App\\Http\\Controllers\\ClienteController@destroy",['cliente'=>$cliente->id])}}">
+                            @csrf    
+                            @method('delete')   
+                            <input value="Eliminar" type="submit" class="btn btn-danger d-block mb-2">
+                        </form>
+                      
                     </td>
                 </tr>
-           
+               
             @endforeach
-
+            
 
             </tbody>
         </table>
-
+        
+            
+        
     </div>
 
 @endsection
